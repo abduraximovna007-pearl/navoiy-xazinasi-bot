@@ -85,15 +85,13 @@ async def show_about(message: Message):
     from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
     about_text = (
-        f"📚 <b>{config.SHOP_NAME}</b>\n\n"
+        f"📚 <b>«{config.SHOP_NAME}»</b>\n\n"
         f"📍 <b>Manzil:</b> {config.SHOP_ADDRESS}\n"
         f"⏰ <b>Ish vaqti:</b> {config.SHOP_WORKING_HOURS}\n"
-        f"📞 <b>Telefon:</b> {config.SHOP_PHONE}\n"
+        f"📞 <b>Telefon:</b> <code>{config.SHOP_PHONE}</code>\n"
         f"📷 <b>Instagram:</b> <a href='{config.SHOP_INSTAGRAM}'>@navoiy_xazinasi</a>\n\n"
         f"🚚 <i>Yetkazib berish butun O'zbekiston bo'ylab amalga oshiriladi!</i>"
     )
-
-    clean_phone = config.SHOP_PHONE.replace(" ", "")
 
     kb = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -102,9 +100,6 @@ async def show_about(message: Message):
             ],
             [
                 InlineKeyboardButton(text="📷 Instagram sahifamiz", url=config.SHOP_INSTAGRAM),
-                InlineKeyboardButton(text="📞 Qo'ng'iroq qilish", url=f"tel:{clean_phone}"),
-            ],
-            [
                 InlineKeyboardButton(text="🌐 Google Maps da ko'rish", url=config.SHOP_MAP_URL),
             ]
         ]
@@ -116,6 +111,7 @@ async def show_about(message: Message):
         reply_markup=kb,
         disable_web_page_preview=True,
     )
+
 
 
 @router.callback_query(F.data == "send_location_pin")
